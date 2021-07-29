@@ -7,7 +7,7 @@ document.addEventListener(
     (event) => {
         if (event.target.name === "size") {
             setSize(parseInt(event.target.value))
-            window.alert(`user chose size ${event.target.value}`)
+            window.alert(`User chose size ${event.target.value}`)
         }
     }
 )

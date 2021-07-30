@@ -1,4 +1,4 @@
-import { getOrders, getMetals} from "./database.js"
+import { getOrders, getMetals, getSizes} from "./database.js"
 
 const buildOrderListItem = (orderObject) => {
     
@@ -9,6 +9,18 @@ const buildOrderListItem = (orderObject) => {
         }
     )
     const totalCost = foundMetal.price
+    const costString = totalCost.toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD"
+    })
+
+    const sizes = getSizes()
+    const foundSize = sizes.find(
+        (size) => {
+            return size.id === orderObject.sizeId
+        }
+    )
+    const totalCost = foundSize.price
     const costString = totalCost.toLocaleString("en-US", {
         style: "currency",
         currency: "USD"

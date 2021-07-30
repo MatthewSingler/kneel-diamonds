@@ -1,8 +1,20 @@
 import { getOrders, getMetals} from "./database.js"
 
-const buildOrderListItem = (order) => {
+const buildOrderListItem = (orderObject) => {
+    
+    const metals = getMetals()
+    const foundMetal = metals.find(
+        (metal) => {
+            return metal.id === orderObject.metalId
+        }
+    )
+    const totalCost = foundMetal.price
+    const costString = totalCost.toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD"
+    })
     return `<li>
-        Order #${order.id} was placed on ${order.timestamp}
+        Order #${orderObject.id} was placed on ${orderObject.timestamp} and costs ${costString}
     </li>`
 }
 
@@ -13,34 +25,14 @@ export const Orders = () => {
     the component function for Orders, but not the others?
     */
    const orders = getOrders()
-    const metals = getMetals()
     
-    const orderArray = (orderObj) => {
-        for (const orderObj of ) {
-           return 
-       } 
-    }
-    orderArray(order)
+    
 
-   // Remember that the function you pass to find() must return true/false
-   const foundMetal = metals.find(
-       (metal) => {
-           return metal.id === order.metalId
-       }
-   )
-   const totalCost = foundMetal.price
-   const costString = totalCost.toLocaleString("en-US", {
-       style: "currency",
-       currency: "USD"
-   })
-   
-       `<li>
-       Order #${orders.id} cost ${costString}
-   </li>`
+  
 
     let html = "<ul>"
 
-    const listItems = orders.map(buildOrderListItem)
+    const listItems = orders.map(orderObj => buildOrderListItem(orderObj))
 
     html += listItems.join("")
     
